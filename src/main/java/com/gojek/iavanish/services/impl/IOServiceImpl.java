@@ -49,15 +49,7 @@ public class IOServiceImpl implements IOService {
         if(inputSource.getScanner().hasNext()) {
             String[] line = inputSource.getScanner().nextLine().split("\\s+");
             try {
-                InputCommand command = InputCommand.valueOf(line[0]);
-                List<String> arguments = new ArrayList<>();
-                if(!command.equals(InputCommand.exit) && !command.equals(InputCommand.status)) {
-                    arguments.add(line[1]);
-                    if (command.equals(InputCommand.park)) {
-                        arguments.add(line[2]);
-                    }
-                }
-                return generateInputItem(command, arguments);
+                return getInputItem(line);
             }
             catch (IllegalArgumentException exception) {
                 throw new InvalidInputException(ErrorCodes.INVALID_INPUT, ErrorMessages.INVALID_INPUT_COMMAND);
@@ -70,6 +62,18 @@ public class IOServiceImpl implements IOService {
             return generateInputItem(InputCommand.end_of_line, new ArrayList<>());
         }
         throw new InvalidInputException(ErrorCodes.INVALID_INPUT, ErrorMessages.INVALID_INPUT_COMMAND);
+    }
+
+    private InputItem getInputItem(String[] line) {
+        InputCommand command = InputCommand.valueOf(line[0]);
+        List<String> arguments = new ArrayList<>();
+        if(!command.equals(InputCommand.exit) && !command.equals(InputCommand.status)) {
+            arguments.add(line[1]);
+            if (command.equals(InputCommand.park)) {
+                arguments.add(line[2]);
+            }
+        }
+        return generateInputItem(command, arguments);
     }
 
     private InputItem generateInputItem(InputCommand inputCommand, List<String> arguments) {
