@@ -3,7 +3,6 @@ package com.gojek.iavanish.services.impl;
 import com.gojek.iavanish.exceptions.InvalidInputException;
 import com.gojek.iavanish.exceptions.ParkingLotException;
 import com.gojek.iavanish.models.business.ParkingLots;
-import com.gojek.iavanish.models.constants.ParkingLotConstants;
 import com.gojek.iavanish.models.io.InputItem;
 import com.gojek.iavanish.services.IOService;
 import com.gojek.iavanish.services.ParkingLotService;
@@ -29,10 +28,6 @@ public class ParkingLotServiceImpl implements ParkingLotService {
     public void run() throws InvalidInputException, ParkingLotException {
         while(true) {
             InputItem inputItem = ioService.getNextInput();
-            if(ParkingLotConstants.appTerminationCommands.contains(inputItem.getCommand())) {
-                System.exit(0);
-            }
-
             InputItemExecutionStrategy executionStrategy = inputItemExecutionStrategyFactory.getStrategy(inputItem);
             executionStrategy.execute(parkingLots, inputItem);
         }

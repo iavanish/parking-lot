@@ -1,11 +1,11 @@
 package com.gojek.iavanish.strategies;
 
 import com.gojek.iavanish.exceptions.ParkingLotException;
-import com.gojek.iavanish.models.constants.ErrorCodes;
-import com.gojek.iavanish.models.constants.ErrorMessages;
 import com.gojek.iavanish.models.io.InputItem;
 import com.gojek.iavanish.models.io.validations.InputCommand;
 import com.gojek.iavanish.strategies.impl.*;
+import com.gojek.iavanish.util.constants.ErrorCodes;
+import com.gojek.iavanish.util.constants.ErrorMessages;
 
 import java.util.HashMap;
 import java.util.Map;

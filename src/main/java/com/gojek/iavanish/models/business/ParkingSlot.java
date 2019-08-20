@@ -9,10 +9,19 @@ public abstract class ParkingSlot {
 
     private Long id;
     private ParkingSlotAvailability availability;
+    private Vehicle vehicle;
 
-    public ParkingSlot(Long id, ParkingSlotAvailability availability) {
+    public ParkingSlot(Long id) {
         this.id = id;
-        this.availability = availability;
+        this.availability = ParkingSlotAvailability.available;
+        this.vehicle = null;
+    }
+
+    public void freeUpSlot() {
+        if(availability.equals(ParkingSlotAvailability.occupied)) {
+            availability = ParkingSlotAvailability.available;
+            vehicle = null;
+        }
     }
 
     public Long getId() {
@@ -24,11 +33,26 @@ public abstract class ParkingSlot {
     }
 
     public ParkingSlotAvailability getAvailability() {
-        return availability;
+        return ParkingSlotAvailability.available;
+    }
+
+    public void assignVehicle(Vehicle vehicle) {
+        if(availability.equals(ParkingSlotAvailability.available)) {
+            availability = ParkingSlotAvailability.occupied;
+            this.vehicle = vehicle;
+        }
     }
 
     public void setAvailability(ParkingSlotAvailability availability) {
         this.availability = availability;
+    }
+
+    public Vehicle getVehicle() {
+        return vehicle;
+    }
+
+    public void setVehicle(Vehicle vehicle) {
+        this.vehicle = vehicle;
     }
 
 }

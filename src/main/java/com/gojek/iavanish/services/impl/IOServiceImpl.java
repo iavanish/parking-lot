@@ -1,13 +1,13 @@
 package com.gojek.iavanish.services.impl;
 
 import com.gojek.iavanish.exceptions.InvalidInputException;
-import com.gojek.iavanish.models.constants.ErrorCodes;
-import com.gojek.iavanish.models.constants.ErrorMessages;
 import com.gojek.iavanish.models.io.InputItem;
 import com.gojek.iavanish.models.io.InputSource;
 import com.gojek.iavanish.models.io.validations.InputCommand;
 import com.gojek.iavanish.models.io.validations.InputType;
 import com.gojek.iavanish.services.IOService;
+import com.gojek.iavanish.util.constants.ErrorCodes;
+import com.gojek.iavanish.util.constants.ErrorMessages;
 
 import java.io.File;
 import java.io.IOException;
@@ -62,7 +62,7 @@ public class IOServiceImpl implements IOService {
                 throw new InvalidInputException(ErrorCodes.INVALID_INPUT, ErrorMessages.INVALID_INPUT_COMMAND);
             }
             catch (ArrayIndexOutOfBoundsException excpetion) {
-                throw new InvalidInputException(ErrorCodes.INVALID_INPUT, ErrorMessages.INSUFFICIENT_ARGUMENTS);
+                throw new InvalidInputException(ErrorCodes.INVALID_INPUT, ErrorMessages.INVALID_ARGUMENTS);
             }
         }
         else if(inputSource.getInputType().equals(InputType.file)) {

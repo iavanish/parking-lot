@@ -24,4 +24,12 @@ public class ParkingLots {
         }
     }
 
+    public ParkingLot getParkingLot(String name) {
+        return parkingLots.get(name);
+    }
+
+    public void setParkingLots(Map<String, ParkingLot> parkingLots) {
+        this.parkingLots = parkingLots;
+    }
+
 }

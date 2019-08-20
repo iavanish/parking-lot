@@ -1,4 +1,4 @@
-package com.gojek.iavanish.models.constants;
+package com.gojek.iavanish.util.constants;
 
 /**
  * Created by iavanish on 2019-08-20
