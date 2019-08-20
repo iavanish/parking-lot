@@ -9,7 +9,6 @@ import com.gojek.iavanish.models.io.InputItem;
 import com.gojek.iavanish.strategies.InputItemExecutionStrategy;
 import com.gojek.iavanish.util.constants.ErrorCodes;
 import com.gojek.iavanish.util.constants.ErrorMessages;
-import com.gojek.iavanish.util.constants.ParkingLotConstants;
 
 import java.util.List;
 import java.util.Optional;
@@ -24,9 +23,9 @@ public class LeaveStrategy extends InputItemExecutionStrategy {
     }
 
     @Override
-    public void execute(ParkingLots parkingLots, InputItem inputItem) throws InvalidInputException, ParkingLotException {
+    public String execute(ParkingLots parkingLots, InputItem inputItem) throws InvalidInputException, ParkingLotException {
         validateInputItem(inputItem);
-        ParkingLot parkingLot = parkingLots.getParkingLot(ParkingLotConstants.PARKING_LOT_NAME);
+        ParkingLot parkingLot = parkingLots.getParkingLot(inputItem.getParkingLotName());
         List<ParkingSlot> parkingSlots = parkingLot.getParkingSlots();
         Long parkingSlotNumber = Long.parseLong(inputItem.getArguments().get(0));
         Optional<ParkingSlot> parkingSlot = parkingSlots.stream().filter(p -> p.getId().equals(parkingSlotNumber)).findFirst();
@@ -36,7 +35,7 @@ public class LeaveStrategy extends InputItemExecutionStrategy {
         else {
             throw new InvalidInputException(ErrorCodes.NOT_FOUND, ErrorMessages.INVALID_PARKING_SLOT_NUMBER);
         }
-        System.out.printf("Slot number %d is free\n", parkingSlot.get().getId());
+        return String.format("Slot number %d is free", parkingSlot.get().getId());
     }
 
     @Override

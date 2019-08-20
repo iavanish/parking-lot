@@ -23,8 +23,8 @@ public class ParkingLot {
         this.name = name;
         this.parkingSlots = new ArrayList<>();
         this.maxCapacity = maxCapacity;
-        for(Long i = 0L; i < maxCapacity; i++) {
-            parkingSlots.add(new CarParkingSlot(i+1));
+        for(Long i = 1L; i <= maxCapacity; i++) {
+            parkingSlots.add(new CarParkingSlot(i));
         }
     }
 

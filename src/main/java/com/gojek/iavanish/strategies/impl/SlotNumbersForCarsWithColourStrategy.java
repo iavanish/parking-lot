@@ -10,7 +10,6 @@ import com.gojek.iavanish.models.business.validations.SearchVehicleFields;
 import com.gojek.iavanish.models.io.InputItem;
 import com.gojek.iavanish.services.SearchService;
 import com.gojek.iavanish.strategies.InputItemExecutionStrategy;
-import com.gojek.iavanish.util.constants.ParkingLotConstants;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -31,9 +30,9 @@ public class SlotNumbersForCarsWithColourStrategy extends InputItemExecutionStra
     }
 
     @Override
-    public void execute(ParkingLots parkingLots, InputItem inputItem) throws InvalidInputException, ParkingLotException {
+    public String execute(ParkingLots parkingLots, InputItem inputItem) throws InvalidInputException, ParkingLotException {
         validateInputItem(inputItem);
-        ParkingLot parkingLot = parkingLots.getParkingLot(ParkingLotConstants.PARKING_LOT_NAME);
+        ParkingLot parkingLot = parkingLots.getParkingLot(inputItem.getParkingLotName());
         SearchVehicleQuery searchVehicleQuery = new SearchVehicleQuery(new HashMap<>());
         searchVehicleQuery.getSearchVehicleFields().put(
                 SearchVehicleFields.vehicle_type, new HashSet<>(Collections.singletonList("car")));
@@ -41,13 +40,13 @@ public class SlotNumbersForCarsWithColourStrategy extends InputItemExecutionStra
                 SearchVehicleFields.colour, new HashSet<>(Collections.singletonList(inputItem.getArguments().get(0))));
         List<ParkingSlot> parkingSlots = searchService.findParkingSlotInfo(searchVehicleQuery, parkingLot);
         if(parkingSlots == null || parkingSlots.isEmpty()) {
-            System.out.println("Not found");
+            return "Not found";
         }
         else {
-            System.out.println(parkingSlots
+            return parkingSlots
                     .stream()
                     .map(parkingSlot -> String.valueOf(parkingSlot.getId()))
-                    .collect(Collectors.joining(", ")));
+                    .collect(Collectors.joining(", "));
         }
     }
 

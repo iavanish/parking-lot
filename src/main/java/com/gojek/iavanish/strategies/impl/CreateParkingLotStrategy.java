@@ -8,7 +8,6 @@ import com.gojek.iavanish.models.io.InputItem;
 import com.gojek.iavanish.strategies.InputItemExecutionStrategy;
 import com.gojek.iavanish.util.constants.ErrorCodes;
 import com.gojek.iavanish.util.constants.ErrorMessages;
-import com.gojek.iavanish.util.constants.ParkingLotConstants;
 
 /**
  * Created by iavanish on 2019-08-20
@@ -20,13 +19,13 @@ public class CreateParkingLotStrategy extends InputItemExecutionStrategy {
     }
 
     @Override
-    public void execute(ParkingLots parkingLots, InputItem inputItem) throws InvalidInputException, ParkingLotException {
+    public String execute(ParkingLots parkingLots, InputItem inputItem) throws InvalidInputException, ParkingLotException {
         validateInputItem(inputItem);
-        if(parkingLots.parkingLotExists(ParkingLotConstants.PARKING_LOT_NAME)) {
+        if(parkingLots.parkingLotExists(inputItem.getParkingLotName())) {
             throw new ParkingLotException(ErrorCodes.DUPLICATE_PARKING_LOT, ErrorMessages.DUPLICATE_PARKING_LOT);
         }
-        parkingLots.addParkingLot(new ParkingLot(ParkingLotConstants.PARKING_LOT_NAME, Long.parseLong(inputItem.getArguments().get(0))));
-        System.out.printf("Created a parking lot with %d slots\n", Long.parseLong(inputItem.getArguments().get(0)));
+        parkingLots.addParkingLot(new ParkingLot(inputItem.getParkingLotName(), Long.parseLong(inputItem.getArguments().get(0))));
+        return String.format("Created a parking lot with %d slots", Long.parseLong(inputItem.getArguments().get(0)));
     }
 
     @Override

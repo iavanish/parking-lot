@@ -3,6 +3,7 @@ package com.gojek.iavanish.strategies.impl;
 import com.gojek.iavanish.models.io.InputItem;
 import com.gojek.iavanish.models.io.validations.InputCommand;
 import com.gojek.iavanish.strategies.InputItemExecutionStrategyTest;
+import com.gojek.iavanish.util.constants.ParkingLotConstants;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -29,7 +30,7 @@ public class EndOfLineStrategyTest extends InputItemExecutionStrategyTest {
 
     @Test
     public void execute() throws Exception {
-        endOfLineStrategy.execute(parkingLots, new InputItem(InputCommand.end_of_line, Collections.emptyList()));
+        endOfLineStrategy.execute(parkingLots, new InputItem(ParkingLotConstants.PARKING_LOT_NAME, InputCommand.end_of_line, Collections.emptyList()));
     }
 
 }

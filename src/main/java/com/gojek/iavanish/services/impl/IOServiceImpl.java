@@ -8,6 +8,7 @@ import com.gojek.iavanish.models.io.validations.InputType;
 import com.gojek.iavanish.services.IOService;
 import com.gojek.iavanish.util.constants.ErrorCodes;
 import com.gojek.iavanish.util.constants.ErrorMessages;
+import com.gojek.iavanish.util.constants.ParkingLotConstants;
 
 import java.io.File;
 import java.io.IOException;
@@ -56,7 +57,7 @@ public class IOServiceImpl implements IOService {
                         arguments.add(line[2]);
                     }
                 }
-                return new InputItem(command, arguments);
+                return generateInputItem(command, arguments);
             }
             catch (IllegalArgumentException exception) {
                 throw new InvalidInputException(ErrorCodes.INVALID_INPUT, ErrorMessages.INVALID_INPUT_COMMAND);
@@ -66,9 +67,13 @@ public class IOServiceImpl implements IOService {
             }
         }
         else if(inputSource.getInputType().equals(InputType.file)) {
-            return new InputItem(InputCommand.end_of_line, new ArrayList<>());
+            return generateInputItem(InputCommand.end_of_line, new ArrayList<>());
         }
         throw new InvalidInputException(ErrorCodes.INVALID_INPUT, ErrorMessages.INVALID_INPUT_COMMAND);
+    }
+
+    private InputItem generateInputItem(InputCommand inputCommand, List<String> arguments) {
+        return new InputItem(ParkingLotConstants.PARKING_LOT_NAME, inputCommand, arguments);
     }
 
     private InputType determineInputType(String... args) throws InvalidInputException {

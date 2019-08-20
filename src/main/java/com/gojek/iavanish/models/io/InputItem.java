@@ -9,10 +9,12 @@ import java.util.List;
  */
 public class InputItem {
 
+    private String parkingLotName;
     private InputCommand command;
     private List<String> arguments;
 
-    public InputItem(InputCommand command, List<String> arguments) {
+    public InputItem(String parkingLotName, InputCommand command, List<String> arguments) {
+        this.parkingLotName = parkingLotName;
         this.command = command;
         this.arguments = arguments;
     }
@@ -31,6 +33,14 @@ public class InputItem {
 
     public void setArguments(List<String> arguments) {
         this.arguments = arguments;
+    }
+
+    public String getParkingLotName() {
+        return parkingLotName;
+    }
+
+    public void setParkingLotName(String parkingLotName) {
+        this.parkingLotName = parkingLotName;
     }
 
 }

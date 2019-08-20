@@ -16,9 +16,10 @@ public class EndOfLineStrategy extends InputItemExecutionStrategy {
     }
 
     @Override
-    public void execute(ParkingLots parkingLots, InputItem inputItem) throws InvalidInputException, ParkingLotException {
+    public String execute(ParkingLots parkingLots, InputItem inputItem) throws InvalidInputException, ParkingLotException {
         validateInputItem(inputItem);
         System.exit(0);
+        return "";
     }
 
     @Override

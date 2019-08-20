@@ -11,7 +11,6 @@ import com.gojek.iavanish.models.io.InputItem;
 import com.gojek.iavanish.strategies.InputItemExecutionStrategy;
 import com.gojek.iavanish.util.constants.ErrorCodes;
 import com.gojek.iavanish.util.constants.ErrorMessages;
-import com.gojek.iavanish.util.constants.ParkingLotConstants;
 
 import java.util.List;
 
@@ -25,11 +24,11 @@ public class ParkStrategy extends InputItemExecutionStrategy {
     }
 
     @Override
-    public void execute(ParkingLots parkingLots, InputItem inputItem) throws InvalidInputException, ParkingLotException {
+    public String execute(ParkingLots parkingLots, InputItem inputItem) throws InvalidInputException, ParkingLotException {
         validateInputItem(inputItem);
-        ParkingLot parkingLot = parkingLots.getParkingLot(ParkingLotConstants.PARKING_LOT_NAME);
+        ParkingLot parkingLot = parkingLots.getParkingLot(inputItem.getParkingLotName());
         if(parkingLot.numberOfAvailableSlots() < 1) {
-            System.out.println("Sorry, parking lot is full");
+            return "Sorry, parking lot is full";
         }
         else {
             String registrationNumber = inputItem.getArguments().get(0);
@@ -37,7 +36,7 @@ public class ParkStrategy extends InputItemExecutionStrategy {
             Car car = new Car(registrationNumber, colour);
             List<ParkingSlot> parkingSlot = parkingLot.getAvailableSlots(1);
             parkingSlot.get(0).assignVehicle(car);
-            System.out.printf("Allocated slot number: %d\n", parkingSlot.get(0).getId());
+            return String.format("Allocated slot number: %d", parkingSlot.get(0).getId());
         }
     }
 

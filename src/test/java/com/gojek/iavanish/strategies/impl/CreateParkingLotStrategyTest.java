@@ -1,5 +1,6 @@
 package com.gojek.iavanish.strategies.impl;
 
+import com.gojek.iavanish.exceptions.ParkingLotException;
 import com.gojek.iavanish.models.io.InputItem;
 import com.gojek.iavanish.models.io.validations.InputCommand;
 import com.gojek.iavanish.strategies.InputItemExecutionStrategyTest;
@@ -33,9 +34,15 @@ public class CreateParkingLotStrategyTest extends InputItemExecutionStrategyTest
 
     @Test
     public void execute() throws Exception {
-        createParkingLotStrategy.execute(parkingLots, new InputItem(InputCommand.create_parking_lot, Collections.singletonList("10")));
+        createParkingLotStrategy.execute(parkingLots, new InputItem(ParkingLotConstants.PARKING_LOT_NAME, InputCommand.create_parking_lot, Collections.singletonList("10")));
         assertTrue(parkingLots.parkingLotExists(ParkingLotConstants.PARKING_LOT_NAME));
         assertEquals(new Long(10), parkingLots.getParkingLot(ParkingLotConstants.PARKING_LOT_NAME).numberOfAvailableSlots());
+    }
+
+    @Test(expected = ParkingLotException.class)
+    public void executeDuplicateCreation() throws Exception {
+        createParkingLotStrategy.execute(parkingLots, new InputItem(ParkingLotConstants.PARKING_LOT_NAME, InputCommand.create_parking_lot, Collections.singletonList("10")));
+        createParkingLotStrategy.execute(parkingLots, new InputItem(ParkingLotConstants.PARKING_LOT_NAME, InputCommand.create_parking_lot, Collections.singletonList("5")));
     }
 
 }

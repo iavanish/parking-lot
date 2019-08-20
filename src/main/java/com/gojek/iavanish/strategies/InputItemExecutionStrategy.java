@@ -14,7 +14,7 @@ public abstract class InputItemExecutionStrategy {
 
     protected Integer requiredNoOfArguments;
 
-    public abstract void execute(ParkingLots parkingLots, InputItem inputItem) throws InvalidInputException, ParkingLotException;
+    public abstract String execute(ParkingLots parkingLots, InputItem inputItem) throws InvalidInputException, ParkingLotException;
 
     public void validateInputItem(InputItem inputItem) throws InvalidInputException {
         validateInputItemArgumentSize(inputItem);

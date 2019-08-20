@@ -8,7 +8,6 @@ import com.gojek.iavanish.models.business.ParkingSlot;
 import com.gojek.iavanish.models.business.validations.ParkingSlotAvailability;
 import com.gojek.iavanish.models.io.InputItem;
 import com.gojek.iavanish.strategies.InputItemExecutionStrategy;
-import com.gojek.iavanish.util.constants.ParkingLotConstants;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -23,19 +22,20 @@ public class StatusStrategy extends InputItemExecutionStrategy {
     }
 
     @Override
-    public void execute(ParkingLots parkingLots, InputItem inputItem) throws InvalidInputException, ParkingLotException {
+    public String execute(ParkingLots parkingLots, InputItem inputItem) throws InvalidInputException, ParkingLotException {
         validateInputItem(inputItem);
-        ParkingLot parkingLot = parkingLots.getParkingLot(ParkingLotConstants.PARKING_LOT_NAME);
+        ParkingLot parkingLot = parkingLots.getParkingLot(inputItem.getParkingLotName());
         List<ParkingSlot> parkingSlots = parkingLot.getParkingSlots().stream()
                 .filter(parkingSlot -> parkingSlot.getAvailability().equals(ParkingSlotAvailability.occupied))
                 .collect(Collectors.toList());
         if(parkingSlots == null || parkingSlots.isEmpty()) {
-            System.out.println("No parking slot is occupied right now\n");
+            return "No parking slot is occupied right now";
         }
         else {
-            System.out.printf("Slot No.\tRegistration No.\tColour\n");
-            parkingSlots.forEach(parkingSlot -> System.out.printf("%s\t%s\t%s\n", parkingSlot.getId(),
-                    parkingSlot.getVehicle().getRegistrationNumber(), parkingSlot.getVehicle().getColour().name()));
+            String result = "Slot No.\tRegistration No.\tColour\n";
+            parkingSlots.forEach(parkingSlot -> result.concat(String.format("%s\t%s\t%s\n", parkingSlot.getId(),
+                    parkingSlot.getVehicle().getRegistrationNumber(), parkingSlot.getVehicle().getColour().name())));
+            return result;
         }
     }
 
