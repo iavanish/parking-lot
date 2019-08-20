@@ -26,6 +26,7 @@ public class CreateParkingLotStrategy extends InputItemExecutionStrategy {
             throw new ParkingLotException(ErrorCodes.DUPLICATE_PARKING_LOT, ErrorMessages.DUPLICATE_PARKING_LOT);
         }
         parkingLots.addParkingLot(new ParkingLot(ParkingLotConstants.PARKING_LOT_NAME, Long.parseLong(inputItem.getArguments().get(0))));
+        System.out.printf("Created a parking lot with %d slots\n", Long.parseLong(inputItem.getArguments().get(0)));
     }
 
     @Override

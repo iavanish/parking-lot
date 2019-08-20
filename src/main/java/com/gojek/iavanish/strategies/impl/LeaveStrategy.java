@@ -36,6 +36,7 @@ public class LeaveStrategy extends InputItemExecutionStrategy {
         else {
             throw new InvalidInputException(ErrorCodes.NOT_FOUND, ErrorMessages.INVALID_PARKING_SLOT_NUMBER);
         }
+        System.out.printf("Slot number %d is free\n", parkingSlot.get().getId());
     }
 
     @Override

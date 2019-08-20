@@ -29,13 +29,16 @@ public class ParkStrategy extends InputItemExecutionStrategy {
         validateInputItem(inputItem);
         ParkingLot parkingLot = parkingLots.getParkingLot(ParkingLotConstants.PARKING_LOT_NAME);
         if(parkingLot.numberOfAvailableSlots() < 1) {
-            throw new ParkingLotException(ErrorCodes.PARKING_CAPACITY_EXCEEDED, ErrorMessages.PARKING_CAPACITY_EXCEEDED);
+            System.out.println("Sorry, parking lot is full");
         }
-        String registrationNumber = inputItem.getArguments().get(0);
-        VehicleColour colour = VehicleColour.valueOf(inputItem.getArguments().get(1));
-        Car car = new Car(registrationNumber, colour);
-        List<ParkingSlot> parkingSlot = parkingLot.getAvailableSlots(1);
-        parkingSlot.get(0).assignVehicle(car);
+        else {
+            String registrationNumber = inputItem.getArguments().get(0);
+            VehicleColour colour = VehicleColour.valueOf(inputItem.getArguments().get(1));
+            Car car = new Car(registrationNumber, colour);
+            List<ParkingSlot> parkingSlot = parkingLot.getAvailableSlots(1);
+            parkingSlot.get(0).assignVehicle(car);
+            System.out.printf("Allocated slot number: %d\n", parkingSlot.get(0).getId());
+        }
     }
 
     @Override

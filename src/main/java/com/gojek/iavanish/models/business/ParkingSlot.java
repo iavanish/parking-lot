@@ -33,7 +33,7 @@ public abstract class ParkingSlot {
     }
 
     public ParkingSlotAvailability getAvailability() {
-        return ParkingSlotAvailability.available;
+        return availability;
     }
 
     public void assignVehicle(Vehicle vehicle) {

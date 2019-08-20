@@ -11,4 +11,9 @@ public class Car extends Vehicle {
         super(registrationNumber, colour);
     }
 
+    @Override
+    public String getVehicleType() {
+        return "car";
+    }
+
 }

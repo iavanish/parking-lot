@@ -30,4 +30,7 @@ public abstract class Vehicle {
     public void setColour(VehicleColour colour) {
         this.colour = colour;
     }
+
+    public abstract String getVehicleType();
+
 }

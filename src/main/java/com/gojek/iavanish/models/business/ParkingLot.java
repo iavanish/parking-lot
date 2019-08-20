@@ -3,6 +3,7 @@ package com.gojek.iavanish.models.business;
 import com.gojek.iavanish.models.business.validations.ParkingSlotAvailability;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -23,7 +24,7 @@ public class ParkingLot {
         this.parkingSlots = new ArrayList<>();
         this.maxCapacity = maxCapacity;
         for(Long i = 0L; i < maxCapacity; i++) {
-            parkingSlots.add(new CarParkingSlot(i));
+            parkingSlots.add(new CarParkingSlot(i+1));
         }
     }
 
@@ -72,6 +73,6 @@ public class ParkingLot {
         if(noOfSlots <= availableSlots.size()) {
             return availableSlots.subList(0, noOfSlots);
         }
-        return new ArrayList<>();
+        return Collections.emptyList();
     }
 }
