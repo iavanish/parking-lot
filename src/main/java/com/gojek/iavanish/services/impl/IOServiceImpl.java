@@ -3,7 +3,7 @@ package com.gojek.iavanish.services.impl;
 import com.gojek.iavanish.exceptions.InvalidInputException;
 import com.gojek.iavanish.models.constants.ErrorCodes;
 import com.gojek.iavanish.models.constants.ErrorMessages;
-import com.gojek.iavanish.models.io.InputLine;
+import com.gojek.iavanish.models.io.InputItem;
 import com.gojek.iavanish.models.io.InputSource;
 import com.gojek.iavanish.models.io.validations.InputCommand;
 import com.gojek.iavanish.models.io.validations.InputType;
@@ -44,7 +44,7 @@ public class IOServiceImpl implements IOService {
     }
 
     @Override
-    public InputLine getNextInput() throws InvalidInputException {
+    public InputItem getNextInput() throws InvalidInputException {
         if(inputSource.getScanner().hasNext()) {
             String[] line = inputSource.getScanner().nextLine().split("\\s+");
             try {
@@ -56,7 +56,7 @@ public class IOServiceImpl implements IOService {
                         arguments.add(line[2]);
                     }
                 }
-                return new InputLine(command, arguments);
+                return new InputItem(command, arguments);
             }
             catch (IllegalArgumentException exception) {
                 throw new InvalidInputException(ErrorCodes.INVALID_INPUT, ErrorMessages.INVALID_INPUT_COMMAND);
@@ -66,7 +66,7 @@ public class IOServiceImpl implements IOService {
             }
         }
         else if(inputSource.getInputType().equals(InputType.file)) {
-            return new InputLine(InputCommand.end_of_line, new ArrayList<>());
+            return new InputItem(InputCommand.end_of_line, new ArrayList<>());
         }
         throw new InvalidInputException(ErrorCodes.INVALID_INPUT, ErrorMessages.INVALID_INPUT_COMMAND);
     }

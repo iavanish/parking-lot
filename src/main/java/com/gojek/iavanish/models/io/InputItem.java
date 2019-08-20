@@ -7,12 +7,12 @@ import java.util.List;
 /**
  * Created by iavanish on 2019-08-20
  */
-public class InputLine {
+public class InputItem {
 
     private InputCommand command;
     private List<String> arguments;
 
-    public InputLine(InputCommand command, List<String> arguments) {
+    public InputItem(InputCommand command, List<String> arguments) {
         this.command = command;
         this.arguments = arguments;
     }
