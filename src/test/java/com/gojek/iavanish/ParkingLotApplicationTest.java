@@ -18,24 +18,19 @@ public class ParkingLotApplicationTest {
     public void tearDown() throws Exception {
     }
 
-    @Test
-    public void mainSuccess() throws Exception {
-        ParkingLotApplication.main("file", "functional_spec/fixtures/file_input.txt");
-    }
-
     @Test(expected = InvalidInputException.class)
     public void mainFailureInvalidFile() throws Exception {
-        ParkingLotApplication.main("file", "functional_spec/fixtures/no_file_here.txt");
+        ParkingLotApplication.main("functional_spec/fixtures/no_file_here.txt");
     }
 
     @Test(expected = InvalidInputException.class)
     public void mainFailureWrongArguments() throws Exception {
-        ParkingLotApplication.main("file", "functional_spec/fixtures/file_input_invalid_wrong_arguments.txt");
+        ParkingLotApplication.main("functional_spec/fixtures/file_input_invalid_wrong_arguments.txt");
     }
 
     @Test(expected = InvalidInputException.class)
     public void mainFailureWrongCommand() throws Exception {
-        ParkingLotApplication.main("file", "functional_spec/fixtures/file_input_invalid_wrong_command.txt");
+        ParkingLotApplication.main("functional_spec/fixtures/file_input_invalid_wrong_command.txt");
     }
 
 }

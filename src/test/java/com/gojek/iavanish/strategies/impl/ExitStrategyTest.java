@@ -1,14 +1,8 @@
 package com.gojek.iavanish.strategies.impl;
 
-import com.gojek.iavanish.models.io.InputItem;
-import com.gojek.iavanish.models.io.validations.InputCommand;
 import com.gojek.iavanish.strategies.InputItemExecutionStrategyTest;
-import com.gojek.iavanish.util.constants.ParkingLotConstants;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Test;
-
-import java.util.Collections;
 
 /**
  * Created by iavanish on 2019-08-20
@@ -26,11 +20,6 @@ public class ExitStrategyTest extends InputItemExecutionStrategyTest {
     @After
     public void tearDown() throws Exception {
         super.tearDown();
-    }
-
-    @Test
-    public void execute() throws Exception {
-        exitStrategy.execute(parkingLots, new InputItem(ParkingLotConstants.PARKING_LOT_NAME, InputCommand.exit, Collections.emptyList()));
     }
 
 }
