@@ -6,6 +6,5 @@ package com.gojek.iavanish.util.constants;
 public class ParkingLotConstants {
 
     public static final String PARKING_LOT_NAME = "gojek";
-    public static final String OUTPUT_FILE = "functional_spec/fixtures/file_input_output.txt";
 
 }

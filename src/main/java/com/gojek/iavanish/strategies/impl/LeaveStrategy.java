@@ -2,7 +2,6 @@ package com.gojek.iavanish.strategies.impl;
 
 import com.gojek.iavanish.exceptions.InvalidInputException;
 import com.gojek.iavanish.exceptions.ParkingLotException;
-import com.gojek.iavanish.models.business.ParkingLot;
 import com.gojek.iavanish.models.business.ParkingLots;
 import com.gojek.iavanish.models.business.ParkingSlot;
 import com.gojek.iavanish.models.io.InputItem;
@@ -10,7 +9,6 @@ import com.gojek.iavanish.strategies.InputItemExecutionStrategy;
 import com.gojek.iavanish.util.constants.ErrorCodes;
 import com.gojek.iavanish.util.constants.ErrorMessages;
 
-import java.util.List;
 import java.util.Optional;
 
 /**
@@ -25,10 +23,9 @@ public class LeaveStrategy extends InputItemExecutionStrategy {
     @Override
     public String execute(ParkingLots parkingLots, InputItem inputItem) throws InvalidInputException, ParkingLotException {
         validateInputItem(inputItem);
-        ParkingLot parkingLot = parkingLots.getParkingLot(inputItem.getParkingLotName());
-        List<ParkingSlot> parkingSlots = parkingLot.getParkingSlots();
         Long parkingSlotNumber = Long.parseLong(inputItem.getArguments().get(0));
-        Optional<ParkingSlot> parkingSlot = parkingSlots.stream().filter(p -> p.getId().equals(parkingSlotNumber)).findFirst();
+        Optional<ParkingSlot> parkingSlot = parkingLots.getParkingLot(inputItem.getParkingLotName()).getParkingSlots()
+                .stream().filter(p -> p.getId().equals(parkingSlotNumber)).findFirst();
         if(parkingSlot.isPresent()) {
             parkingSlot.get().freeUpSlot();
         }

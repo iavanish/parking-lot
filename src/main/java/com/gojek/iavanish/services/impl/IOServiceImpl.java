@@ -33,7 +33,7 @@ public class IOServiceImpl implements IOService {
         }
         else if(inputType.equals(InputType.file)) {
             try {
-                inputSource = new InputSource(inputType, new Scanner(new File(args[1])));
+                inputSource = new InputSource(inputType, new Scanner(new File(args[0])));
             }
             catch (IOException exception) {
                 throw new InvalidInputException(ErrorCodes.INVALID_INPUT, ErrorMessages.UNABLE_TO_READ_FILE);
@@ -77,26 +77,14 @@ public class IOServiceImpl implements IOService {
     }
 
     private InputType determineInputType(String... args) throws InvalidInputException {
-        if(validateProgramArguments(args)) {
-            return InputType.valueOf(args[0]);
+        if(args != null && args.length == 1) {
+            return InputType.file;
         }
-        throw new InvalidInputException(ErrorCodes.INVALID_INPUT, ErrorMessages.INVALID_PROGRAM_ARGUMENTS);
+        return InputType.command_line;
     }
 
     private boolean validateProgramArguments(String... args) {
-        if(args == null || args.length != 1 && args.length != 2) {
-            return false;
-        }
-        else {
-            try {
-                InputType inputType = InputType.valueOf(args[0]);
-                return (inputType.equals(InputType.command_line) && args.length == 1) ||
-                        (inputType.equals(InputType.file) && args.length == 2);
-            }
-            catch (IllegalArgumentException exception) {
-                return false;
-            }
-        }
+        return args == null || args.length <= 1;
     }
 
 }

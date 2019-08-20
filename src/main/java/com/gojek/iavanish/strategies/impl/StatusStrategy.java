@@ -28,15 +28,26 @@ public class StatusStrategy extends InputItemExecutionStrategy {
         List<ParkingSlot> parkingSlots = parkingLot.getParkingSlots().stream()
                 .filter(parkingSlot -> parkingSlot.getAvailability().equals(ParkingSlotAvailability.occupied))
                 .collect(Collectors.toList());
-        if(parkingSlots == null || parkingSlots.isEmpty()) {
+        if(parkingSlots.isEmpty()) {
             return "No parking slot is occupied right now";
         }
-        else {
-            StringBuilder result = new StringBuilder("Slot No.\tRegistration No.\tColour");
-            parkingSlots.forEach(parkingSlot -> result.append(String.format("\n%s\t%s\t%s", parkingSlot.getId(),
-                    parkingSlot.getVehicle().getRegistrationNumber(), parkingSlot.getVehicle().getColour().name())));
-            return result.toString();
-        }
+        return formatOutput(parkingSlots);
+    }
+
+    private String formatOutput(List<ParkingSlot> parkingSlots) {
+        StringBuilder result = new StringBuilder("Slot No.    Registration No    Colour");
+        parkingSlots.forEach(parkingSlot -> {
+            StringBuilder slotNo = new StringBuilder(String.valueOf(parkingSlot.getId()));
+            while(slotNo.length() < 12) {
+                slotNo.append(" ");
+            }
+            StringBuilder registrationNo = new StringBuilder(parkingSlot.getVehicle().getRegistrationNumber());
+            while (registrationNo.length() < 19) {
+                registrationNo.append(" ");
+            }
+            result.append(String.format("\n%s%s%s", slotNo, registrationNo, parkingSlot.getVehicle().getColour().name()));
+        });
+        return result.toString();
     }
 
     @Override

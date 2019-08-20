@@ -2,10 +2,7 @@ package com.gojek.iavanish.strategies.impl;
 
 import com.gojek.iavanish.exceptions.InvalidInputException;
 import com.gojek.iavanish.exceptions.ParkingLotException;
-import com.gojek.iavanish.models.business.Car;
-import com.gojek.iavanish.models.business.ParkingLot;
-import com.gojek.iavanish.models.business.ParkingLots;
-import com.gojek.iavanish.models.business.ParkingSlot;
+import com.gojek.iavanish.models.business.*;
 import com.gojek.iavanish.models.business.validations.VehicleColour;
 import com.gojek.iavanish.models.io.InputItem;
 import com.gojek.iavanish.strategies.InputItemExecutionStrategy;
@@ -33,9 +30,9 @@ public class ParkStrategy extends InputItemExecutionStrategy {
         else {
             String registrationNumber = inputItem.getArguments().get(0);
             VehicleColour colour = VehicleColour.valueOf(inputItem.getArguments().get(1));
-            Car car = new Car(registrationNumber, colour);
+            Vehicle vehicle = new Car(registrationNumber, colour);
             List<ParkingSlot> parkingSlot = parkingLot.getAvailableSlots(1);
-            parkingSlot.get(0).assignVehicle(car);
+            parkingSlot.get(0).assignVehicle(vehicle);
             return String.format("Allocated slot number: %d", parkingSlot.get(0).getId());
         }
     }

@@ -33,21 +33,24 @@ public class SlotNumbersForCarsWithColourStrategy extends InputItemExecutionStra
     public String execute(ParkingLots parkingLots, InputItem inputItem) throws InvalidInputException, ParkingLotException {
         validateInputItem(inputItem);
         ParkingLot parkingLot = parkingLots.getParkingLot(inputItem.getParkingLotName());
+        SearchVehicleQuery searchVehicleQuery = getSearchVehicleQuery(inputItem);
+        List<ParkingSlot> parkingSlots = searchService.findParkingSlotInfo(searchVehicleQuery, parkingLot);
+        if(parkingSlots == null || parkingSlots.isEmpty()) {
+            return "Not found";
+        }
+        return parkingSlots
+                .stream()
+                .map(parkingSlot -> String.valueOf(parkingSlot.getId()))
+                .collect(Collectors.joining(", "));
+    }
+
+    private SearchVehicleQuery getSearchVehicleQuery(InputItem inputItem) {
         SearchVehicleQuery searchVehicleQuery = new SearchVehicleQuery(new HashMap<>());
         searchVehicleQuery.getSearchVehicleFields().put(
                 SearchVehicleFields.vehicle_type, new HashSet<>(Collections.singletonList("car")));
         searchVehicleQuery.getSearchVehicleFields().put(
                 SearchVehicleFields.colour, new HashSet<>(Collections.singletonList(inputItem.getArguments().get(0))));
-        List<ParkingSlot> parkingSlots = searchService.findParkingSlotInfo(searchVehicleQuery, parkingLot);
-        if(parkingSlots == null || parkingSlots.isEmpty()) {
-            return "Not found";
-        }
-        else {
-            return parkingSlots
-                    .stream()
-                    .map(parkingSlot -> String.valueOf(parkingSlot.getId()))
-                    .collect(Collectors.joining(", "));
-        }
+        return searchVehicleQuery;
     }
 
     @Override
