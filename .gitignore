@@ -1,0 +1,58 @@
+*.class
+*.iml
+*.ipr
+*.iws
+*.DS_Store
+
+# Package Files #
+*.jar
+*.war
+*.ear
+*.log
+*.rdb
+*capfile
+
+# Target directory #
+*production_seed/**
+*logs/**
+*target/**
+*.idea/**
+*.gradle/**
+*build/**
+*out/**
+*javadoc/**
+docs/build/**
+*/*logs/**
+*/*target/**
+*/*.idea/**
+*/*.gradle/**
+*/*build/**
+
+.idea/*
+.idea/libraries/*.*
+.idea/libraries/*
+.idea/uiDesigner.xml
+.idea/lib.xml
+.idea/misc.xml
+.idea/modules.xml
+
+# Package Files #
+*.log*
+
+# Gradle #
+.gradle/
+build/
+logs/
+/bin/
+
+# Maven #
+dependency-reduced-pom.xml
+
+# Eclipse #
+.classpath
+.project
+.settings/
+src/main/java/com/jeeves/application/guice/
+src/main/java/com/jeeves/application/healthcheck/
+src/main/java/com/jeeves/application/managed/
+target/
