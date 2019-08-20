@@ -32,10 +32,10 @@ public class StatusStrategy extends InputItemExecutionStrategy {
             return "No parking slot is occupied right now";
         }
         else {
-            String result = "Slot No.\tRegistration No.\tColour\n";
-            parkingSlots.forEach(parkingSlot -> result.concat(String.format("%s\t%s\t%s\n", parkingSlot.getId(),
+            StringBuilder result = new StringBuilder("Slot No.\tRegistration No.\tColour");
+            parkingSlots.forEach(parkingSlot -> result.append(String.format("\n%s\t%s\t%s", parkingSlot.getId(),
                     parkingSlot.getVehicle().getRegistrationNumber(), parkingSlot.getVehicle().getColour().name())));
-            return result;
+            return result.toString();
         }
     }
 

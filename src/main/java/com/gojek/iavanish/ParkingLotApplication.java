@@ -19,6 +19,7 @@ public class ParkingLotApplication {
     public static void main(String... args) throws InvalidInputException, ParkingLotException {
         File outputFile = new File(ParkingLotConstants.OUTPUT_FILE);
         try {
+            outputFile.delete();
             outputFile.createNewFile();
         }
         catch (IOException exception) {

@@ -24,4 +24,5 @@ public class IOServiceImplTest {
     public void getNextInput() throws Exception {
         ioService.getNextInput();
     }
+
 }
