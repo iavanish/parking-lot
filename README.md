@@ -7,7 +7,7 @@
 * Source Code in src/main
 * Test Code in src/test
 * Test Cases in functional_spec/fixtures
-* Writes the output to functional_spec/fixtures/file_input_output.txt file as well as to the console
+* Writes the output to the console
 
 ### Running the project
 * ./gradlew clean build
