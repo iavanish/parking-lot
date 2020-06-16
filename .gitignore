@@ -43,7 +43,6 @@ docs/build/**
 .gradle/
 build/
 logs/
-/bin/
 
 # Maven #
 dependency-reduced-pom.xml

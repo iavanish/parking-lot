@@ -1,0 +1,2 @@
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
+java -cp $DIR/../build/libs/parking_lot-1.0.jar com.gojek.iavanish.ParkingLotApplication $1
